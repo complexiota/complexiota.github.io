@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply transition-smooth;
+}
+
+body {
+  @apply bg-gray-950 text-gray-100 font-sans;
+  font-family: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  @apply w-3;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-cyan-400 to-blue-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply from-cyan-300 to-blue-500;
+}
+
+/* Gradient Text */
+.gradient-text {
+  @apply bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent;
+}
+
+/* Glass Morphism */
+.glass-dark {
+  @apply bg-glass-dark/80 backdrop-blur-xl border border-cyan-500/20 rounded-xl;
+}
+
+.glass {
+  @apply bg-glass/80 backdrop-blur-xl border border-cyan-500/20 rounded-xl;
+}
+
+/* Smooth Transitions */
+.transition-smooth {
+  @apply transition-all duration-300 ease-out;
+}
+
+/* Glow Effects */
+.glow-cyan {
+  @apply shadow-lg shadow-cyan-500/50;
+}
+
+.glow-blue {
+  @apply shadow-lg shadow-blue-500/50;
+}
+
+.glow-purple {
+  @apply shadow-lg shadow-purple-500/50;
+}
+
+/* Hover Effects */
+.hover-glow {
+  @apply hover:shadow-lg hover:shadow-cyan-400/50 transition-smooth;
+}
+
+.hover-lift {
+  @apply hover:-translate-y-1 hover:shadow-xl transition-smooth;
+}
+
+/* Animated Gradient Background */
+.animated-gradient {
+  background-size: 400% 400%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Text Shimmer */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(34, 211, 238, 0.4) 25%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(34, 211, 238, 0.4) 75%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 2s linear infinite;
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Particle Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-40px) translateX(-10px);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translateY(-20px) translateX(15px);
+    opacity: 0.7;
+  }
+}
+
+.particle {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Section Animations */
+.section-fade {
+  @apply opacity-0 animate-fadeIn;
+}
+
+@keyframes fadeIn {
+  from {
+    @apply opacity-0 translate-y-4;
+  }
+  to {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Progress Bar */
+.progress-bar {
+  @apply fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-600 z-50;
+}
+
+/* Card Hover Effects */
+.card-hover {
+  @apply cursor-pointer transition-smooth hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 hover:scale-105;
+}
+
+/* Button Styles */
+.btn-primary {
+  @apply px-6 py-3 rounded-lg font-semibold transition-smooth bg-gradient-to-r from-cyan-400 to-blue-600 text-gray-950 hover:shadow-lg hover:shadow-cyan-400/50 hover:scale-105;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 rounded-lg font-semibold transition-smooth border border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-400/30;
+}
+
+/* Responsive Typography */
+@screen sm {
+  body {
+    @apply text-base;
+  }
+}
+
+@screen lg {
+  body {
+    @apply text-lg;
+  }
+}
