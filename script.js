@@ -1,60 +1,79 @@
-// Form submission handler
-const contactForm = document.getElementById('contactForm');
+const contactForm = document.getElementById("contactForm");
+const formNote = document.getElementById("formNote");
+const navLinks = document.querySelectorAll(".nav-links a");
+const sections = document.querySelectorAll("main section[id]");
+const revealElements = document.querySelectorAll(".reveal");
 
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form values
-        const formData = new FormData(this);
-        const name = this.querySelector('input[type="text"]').value;
-        const email = this.querySelector('input[type="email"]').value;
-        const message = this.querySelector('textarea').value;
-        
-        // Create mailto link
-        const mailtoLink = `mailto:your.email@example.com?subject=Message from ${name}&body=${encodeURIComponent(message)}%0A%0AFrom: ${name} (${email})`;
-        
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        // Reset form
+    contactForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name = this.querySelector('input[type="text"]').value.trim();
+        const email = this.querySelector('input[type="email"]').value.trim();
+        const message = this.querySelector("textarea").value.trim();
+        const subject = encodeURIComponent(`Portfolio message from ${name}`);
+        const body = encodeURIComponent(`${message}\n\nFrom: ${name} (${email})`);
+
+        window.location.href = `mailto:your.email@example.com?subject=${subject}&body=${body}`;
+
         this.reset();
-        
-        // Optional: Show success message
-        alert('Thank you for your message! Opening your email client...');
+
+        if (formNote) {
+            formNote.textContent = "Opening your default email app...";
+        }
     });
 }
 
-// Smooth scroll enhancement
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+navLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+        const targetId = link.getAttribute("href");
+        const targetSection = document.querySelector(targetId);
+
+        if (!targetSection) {
+            return;
         }
+
+        event.preventDefault();
+        targetSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
     });
 });
 
-// Add animation on scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
         if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-            observer.unobserve(entry.target);
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
         }
     });
-}, observerOptions);
+}, {
+    threshold: 0.18,
+    rootMargin: "0px 0px -40px 0px"
+});
 
-// Observe all skill cards and project cards
-document.querySelectorAll('.skill-card, .project-card').forEach(card => {
-    observer.observe(card);
+revealElements.forEach((element) => {
+    revealObserver.observe(element);
+});
+
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+            return;
+        }
+
+        const activeId = `#${entry.target.id}`;
+
+        navLinks.forEach((link) => {
+            link.classList.toggle("is-active", link.getAttribute("href") === activeId);
+        });
+    });
+}, {
+    threshold: 0.45,
+    rootMargin: "-20% 0px -40% 0px"
+});
+
+sections.forEach((section) => {
+    sectionObserver.observe(section);
 });
