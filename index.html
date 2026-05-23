@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ComplexIOTA portfolio focused on Data Science, AI/ML, and quantitative research.">
-    <title>ComplexIOTA | Data Science, AI/ML & Quant</title>
+    <meta name="description" content="Deepanshu Sagar portfolio focused on Data Science, AI/ML, and quantitative research.">
+    <title>Deepanshu Sagar | Data Science, AI/ML & Quant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
         <canvas id="particleCanvas"></canvas>
         <nav class="navbar">
             <div class="container">
-                <a href="#home" class="nav-brand">ComplexIOTA</a>
+                <a href="#home" class="nav-brand">Deepanshu Sagar</a>
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
@@ -473,6 +473,51 @@
                                 <span class="project-note">Predictive Agriculture</span>
                             </div>
                         </article>
+
+                        <article class="project-card reveal">
+                            <div class="project-header">
+                                <div>
+                                    <p class="project-type">Data Science + Analysis</p>
+                                    <h3>Air Quality Analysis</h3>
+                                </div>
+                                <span class="project-tag">Environmental</span>
+                            </div>
+                            <p class="project-description">
+                                Comprehensive data science pipeline analyzing air quality indices. Involves feature engineering, statistical evaluation of pollutants, and exploratory data analysis to identify environmental trends and predict AQI levels.
+                            </p>
+                            <div class="project-tech">
+                                <span>Python</span>
+                                <span>Pandas</span>
+                                <span>Visualization</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/complexiota" target="_blank" rel="noreferrer">GitHub <i class="fab fa-github"></i></a>
+                                <span class="project-note">AQI Analysis</span>
+                            </div>
+                        </article>
+
+                        <article class="project-card reveal">
+                            <div class="project-header">
+                                <div>
+                                    <p class="project-type">AI + LLMs</p>
+                                    <h3>RAG-Based AI System</h3>
+                                </div>
+                                <span class="project-tag">LangChain</span>
+                            </div>
+                            <p class="project-description">
+                                A Retrieval-Augmented Generation (RAG) system built to query custom documents. Integrates vector embeddings, an LLM backbone, and semantic search to retrieve accurate context and prevent AI hallucinations.
+                            </p>
+                            <div class="project-tech">
+                                <span>Python</span>
+                                <span>LangChain</span>
+                                <span>Vector DB</span>
+                                <span>LLMs</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/complexiota" target="_blank" rel="noreferrer">GitHub <i class="fab fa-github"></i></a>
+                                <span class="project-note">Context-Aware AI</span>
+                            </div>
+                        </article>
                     </div>
                 </div>
             </section>
@@ -503,20 +548,21 @@
                     </div>
 
                     <form class="contact-form reveal" id="contactForm">
+                        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input id="name" type="text" placeholder="Your name" required>
+                            <input name="name" id="name" type="text" placeholder="Your name" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input id="email" type="email" placeholder="your.email@example.com" required>
+                            <input name="email" id="email" type="email" placeholder="your.email@example.com" required>
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" placeholder="Tell me about your project, role, or idea." rows="5" required></textarea>
+                            <textarea name="message" id="message" placeholder="Tell me about your project, role, or idea." rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Start the Conversation</button>
-                        <p class="form-note" id="formNote">This form opens your default email client.</p>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Start the Conversation</button>
+                        <p class="form-note" id="formNote">This form sends a direct message to my email securely.</p>
                     </form>
                 </div>
             </section>
@@ -524,7 +570,7 @@
 
         <footer class="footer">
             <div class="container">
-                <p>&copy; 2026 ComplexIOTA. Built around data, intelligence, and quantitative curiosity.</p>
+                <p>&copy; 2026 Deepanshu Sagar. Built around data, intelligence, and quantitative curiosity.</p>
             </div>
         </footer>
     </div>

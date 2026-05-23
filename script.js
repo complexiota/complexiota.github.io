@@ -309,3 +309,43 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
+
+// Contact Form Submission (Web3Forms API)
+const contactForm = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+const formNote = document.getElementById('formNote');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(contactForm);
+        
+        // Change button state
+        const originalBtnText = submitBtn.innerText;
+        submitBtn.innerText = 'Sending...';
+        submitBtn.disabled = true;
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                formNote.innerText = "Success! Your message has been sent to Deepanshu.";
+                formNote.style.color = "var(--success)";
+                contactForm.reset();
+            } else {
+                formNote.innerText = "Something went wrong. Please try again or reach out on LinkedIn.";
+                formNote.style.color = "var(--accent)";
+            }
+        } catch (error) {
+            formNote.innerText = "Network error. Please try again later.";
+            formNote.style.color = "var(--accent)";
+        } finally {
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    });
+}
