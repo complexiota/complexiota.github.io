@@ -174,7 +174,7 @@ if (canvas) {
             this.density = (Math.random() * 20) + 1;
             this.vx = (Math.random() - 0.5) * 0.5;
             this.vy = (Math.random() - 0.5) * 0.5;
-            this.color = 'rgba(15, 123, 141, 0.4)';
+            this.color = 'rgba(0, 242, 254, 0.6)';
         }
         draw() {
             ctx.fillStyle = this.color;
@@ -238,7 +238,7 @@ if (canvas) {
                 let distance = dx * dx + dy * dy;
                 if (distance < 12000) {
                     opacityValue = 1 - (distance / 12000);
-                    ctx.strokeStyle = `rgba(15, 123, 141, ${opacityValue * 0.15})`;
+                    ctx.strokeStyle = `rgba(0, 242, 254, ${opacityValue * 0.25})`;
                     ctx.lineWidth = 0.8;
                     ctx.beginPath();
                     ctx.moveTo(particles[a].x, particles[a].y);
