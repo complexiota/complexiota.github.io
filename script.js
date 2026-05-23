@@ -3,6 +3,18 @@ const formNote = document.getElementById("formNote");
 const navLinks = document.querySelectorAll(".nav-links a");
 const sections = document.querySelectorAll("main section[id]");
 const revealElements = document.querySelectorAll(".reveal");
+const navbar = document.querySelector(".navbar");
+
+// Navbar scroll effect
+if (navbar) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+}
 
 if (contactForm) {
     contactForm.addEventListener("submit", function (event) {
@@ -97,10 +109,18 @@ if (scrollProgress) {
     });
 }
 
-// 3D Tilt Effect
+// Enhanced 3D Tilt Effect with better performance
 const tiltCards = document.querySelectorAll('.project-card, .focus-card');
 tiltCards.forEach(card => {
+    let isMouseOver = false;
+    
+    card.addEventListener('mouseenter', () => {
+        isMouseOver = true;
+    });
+    
     card.addEventListener('mousemove', (e) => {
+        if (!isMouseOver) return;
+        
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -116,21 +136,19 @@ tiltCards.forEach(card => {
     });
     
     card.addEventListener('mouseleave', () => {
+        isMouseOver = false;
         card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
         card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
     });
-    
-    card.addEventListener('mouseenter', () => {
-        card.style.transition = 'transform 0.1s ease';
-    });
 });
 
-// Particle Network Background
+// Particle Network Background with optimization
 const canvas = document.getElementById('particleCanvas');
 if (canvas) {
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     let particles = [];
     let mouse = { x: null, y: null, radius: 150 };
+    let animationId = null;
 
     window.addEventListener('mousemove', (e) => {
         mouse.x = e.x;
@@ -140,7 +158,9 @@ if (canvas) {
     function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        init();
     }
+    
     window.addEventListener('resize', resize);
     resize();
 
@@ -152,6 +172,8 @@ if (canvas) {
             this.baseX = this.x;
             this.baseY = this.y;
             this.density = (Math.random() * 20) + 1;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
             this.color = 'rgba(15, 123, 141, 0.4)';
         }
         draw() {
@@ -165,14 +187,15 @@ if (canvas) {
             let dx = mouse.x - this.x;
             let dy = mouse.y - this.y;
             let distance = Math.sqrt(dx * dx + dy * dy);
-            let forceDirectionX = dx / distance;
-            let forceDirectionY = dy / distance;
-            let maxDistance = mouse.radius;
-            let force = (maxDistance - distance) / maxDistance;
-            let directionX = forceDirectionX * force * this.density;
-            let directionY = forceDirectionY * force * this.density;
-
+            
             if (distance < mouse.radius) {
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * this.density;
+                let directionY = forceDirectionY * force * this.density;
+                
                 this.x -= directionX;
                 this.y -= directionY;
             } else {
@@ -185,12 +208,22 @@ if (canvas) {
                     this.y -= dy / 10;
                 }
             }
+            
+            // Subtle drift
+            this.x += this.vx * 0.3;
+            this.y += this.vy * 0.3;
+            
+            // Wrap around edges
+            if (this.x < 0) this.x = canvas.width;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.y < 0) this.y = canvas.height;
+            if (this.y > canvas.height) this.y = 0;
         }
     }
 
     function init() {
         particles = [];
-        let numParticles = (canvas.width * canvas.height) / 10000;
+        let numParticles = Math.max(20, (canvas.width * canvas.height) / 15000);
         for (let i = 0; i < numParticles; i++) {
             particles.push(new Particle());
         }
@@ -199,14 +232,14 @@ if (canvas) {
     function connect() {
         let opacityValue = 1;
         for (let a = 0; a < particles.length; a++) {
-            for (let b = a; b < particles.length; b++) {
+            for (let b = a + 1; b < particles.length; b++) {
                 let dx = particles[a].x - particles[b].x;
                 let dy = particles[a].y - particles[b].y;
                 let distance = dx * dx + dy * dy;
                 if (distance < 12000) {
                     opacityValue = 1 - (distance / 12000);
                     ctx.strokeStyle = `rgba(15, 123, 141, ${opacityValue * 0.15})`;
-                    ctx.lineWidth = 1;
+                    ctx.lineWidth = 0.8;
                     ctx.beginPath();
                     ctx.moveTo(particles[a].x, particles[a].y);
                     ctx.lineTo(particles[b].x, particles[b].y);
@@ -223,9 +256,56 @@ if (canvas) {
             particles[i].update();
         }
         connect();
-        requestAnimationFrame(animate);
+        animationId = requestAnimationFrame(animate);
     }
 
     init();
     animate();
+    
+    // Stop animation when tab is not visible
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden && animationId) {
+            cancelAnimationFrame(animationId);
+        } else if (!document.hidden) {
+            animate();
+        }
+    });
 }
+
+// Smooth scroll and lazy load optimization
+let scrollTicking = false;
+window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+            scrollTicking = false;
+        });
+        scrollTicking = true;
+    }
+});
+
+// Add keyboard navigation support
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') {
+        const currentIndex = Array.from(navLinks).findIndex(link => link.classList.contains('is-active'));
+        const nextIndex = (currentIndex + 1) % navLinks.length;
+        const nextLink = navLinks[nextIndex];
+        if (nextLink) {
+            const targetId = nextLink.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    } else if (e.key === 'ArrowUp') {
+        const currentIndex = Array.from(navLinks).findIndex(link => link.classList.contains('is-active'));
+        const nextIndex = (currentIndex - 1 + navLinks.length) % navLinks.length;
+        const nextLink = navLinks[nextIndex];
+        if (nextLink) {
+            const targetId = nextLink.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }
+});
