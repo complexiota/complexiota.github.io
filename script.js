@@ -14,7 +14,7 @@ if (contactForm) {
         const subject = encodeURIComponent(`Portfolio message from ${name}`);
         const body = encodeURIComponent(`${message}\n\nFrom: ${name} (${email})`);
 
-        window.location.href = `mailto:your.email@example.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:deepanshusagar18@gmail.com?subject=${subject}&body=${body}`;
 
         this.reset();
 
