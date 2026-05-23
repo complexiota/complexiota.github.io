@@ -610,13 +610,163 @@ section {
     transform: translateY(0);
 }
 
+/* Resume Section */
+.resume {
+    padding-top: 60px;
+}
+
+.resume-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3.5rem;
+    align-items: start;
+}
+
+.resume-subheading {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.45rem;
+    color: var(--brand-deep);
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    border-bottom: 2px solid rgba(15, 123, 141, 0.12);
+    padding-bottom: 0.6rem;
+}
+
+.resume-subheading i {
+    color: var(--brand);
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    border-left: 2px solid rgba(15, 123, 141, 0.12);
+    padding-left: 1.8rem;
+    margin-left: 0.6rem;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2.2rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: calc(-1.8rem - 7px);
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--brand);
+    border: 2px solid var(--surface-strong);
+    box-shadow: 0 0 0 3px rgba(15, 123, 141, 0.18);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+    background: var(--accent);
+    transform: scale(1.25);
+    box-shadow: 0 0 0 4px rgba(255, 183, 3, 0.25);
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+}
+
+.timeline-header h4 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.timeline-date {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.82rem;
+    color: var(--brand);
+    font-weight: 500;
+}
+
+.timeline-company {
+    font-weight: 600;
+    color: var(--brand-deep);
+    font-size: 0.95rem;
+    margin-bottom: 0.6rem;
+}
+
+.timeline-details {
+    padding-left: 1.1rem;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+}
+
+.timeline-details li {
+    margin-bottom: 0.4rem;
+}
+
+.timeline-text {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+}
+
+/* Skills */
+.skills-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.skill-category h5 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.6rem;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.skill-tag {
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(15, 123, 141, 0.1);
+    box-shadow: 0 2px 8px rgba(17, 32, 49, 0.02);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.skill-tag:hover {
+    transform: translateY(-2px);
+    border-color: var(--brand);
+    background-color: var(--surface-strong);
+    color: var(--brand-deep);
+}
+
 @media (max-width: 1080px) {
     .hero-grid,
     .about-grid,
     .contact-grid,
     .quant-banner-grid,
     .focus-grid,
-    .projects-grid {
+    .projects-grid,
+    .resume-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -652,8 +802,13 @@ section {
     .contact-grid,
     .quant-banner-grid,
     .focus-grid,
-    .projects-grid {
+    .projects-grid,
+    .resume-grid {
         grid-template-columns: 1fr;
+    }
+
+    .resume-grid {
+        gap: 2.5rem;
     }
 
     .hero-copy h1 {
