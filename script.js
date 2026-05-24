@@ -16,25 +16,7 @@ if (navbar) {
     });
 }
 
-if (contactForm) {
-    contactForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const name = this.querySelector('input[type="text"]').value.trim();
-        const email = this.querySelector('input[type="email"]').value.trim();
-        const message = this.querySelector("textarea").value.trim();
-        const subject = encodeURIComponent(`Portfolio message from ${name}`);
-        const body = encodeURIComponent(`${message}\n\nFrom: ${name} (${email})`);
-
-        window.location.href = `mailto:deepanshusagar18@gmail.com?subject=${subject}&body=${body}`;
-
-        this.reset();
-
-        if (formNote) {
-            formNote.textContent = "Opening your default email app...";
-        }
-    });
-}
+// Old mailto logic removed, using Web3Forms at the bottom
 
 navLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
@@ -311,9 +293,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Contact Form Submission (Web3Forms API)
-const contactForm = document.getElementById('contactForm');
 const submitBtn = document.getElementById('submitBtn');
-const formNote = document.getElementById('formNote');
 
 if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
